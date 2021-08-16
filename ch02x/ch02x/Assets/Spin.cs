@@ -7,6 +7,6 @@ public class Spin : MonoBehaviour
 
     void Update()
     {
-        transform.Rotate(0, speed, 0);        
+        transform.Rotate(0, speed, 0, Space.World); 
     }
 }
