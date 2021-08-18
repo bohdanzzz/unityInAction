@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class MemoryCard : MonoBehaviour
 {
+    [SerializeField] private SceneController controller;
+
     [SerializeField] private GameObject cardBack;
     [SerializeField] private Sprite image;
 
-    public void Start()
+    private int _id;
+    public int id {
+        get {return _id;}
+    }
+
+    public void SetCard(int id, Sprite image)
     {
+        _id = id;
         GetComponent<SpriteRenderer>().sprite = image;
     }
 
@@ -16,6 +24,8 @@ public class MemoryCard : MonoBehaviour
     {
         if(cardBack.activeSelf) {
             cardBack.SetActive(false);
+            
+            controller.CheckLast(_id, cardBack);
         }
     }
 }
