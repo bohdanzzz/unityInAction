@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
+    [SerializeField] private TextMesh scoreLabel;
+
     public const int gridRows = 2;
     public const int gridCols = 4;
     public const float offsetX = 2f;
@@ -69,7 +72,7 @@ public class SceneController : MonoBehaviour
                 StartCoroutine(HideCard(lastCardBack));
             }else{
                 _score++;
-                Debug.Log("Score: " + _score);
+                scoreLabel.text = "Score: " + _score;
             }
 
             _state = 0;
@@ -81,5 +84,9 @@ public class SceneController : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
 
         card.SetActive(true);//todo to card method
+    }
+
+    public void Restart(){
+        SceneManager.LoadScene("SampleScene");
     }
 }
