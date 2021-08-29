@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WanderingAI : MonoBehaviour
 {
+    public const float baseSpeed = 3.0f;
+
     [SerializeField] private GameObject fireballPrefab;
     private GameObject _fireball;
 
@@ -12,14 +15,14 @@ public class WanderingAI : MonoBehaviour
     private bool _alive;
 
     void Start(){
-        _alive = true;
+        _alive = true;        
     }
 
     void Update()
     {
         if(!_alive){
             return;
-        }
+        }        
 
         transform.Translate(0, 0, speed * Time.deltaTime);
 
@@ -42,5 +45,17 @@ public class WanderingAI : MonoBehaviour
 
     public void SetAlive(bool alive){
         _alive = alive;
+    }
+
+    void Awake(){
+        Messenger<float>.AddListener(GameEvent.SPEED_CHANGED, OnSpeedChanged);
+    }
+
+    void Destroy(){
+        Messenger<float>.RemoveListener(GameEvent.SPEED_CHANGED, OnSpeedChanged);
+    }
+
+    private void OnSpeedChanged(float value){
+        speed = baseSpeed * value;
     }
 }
