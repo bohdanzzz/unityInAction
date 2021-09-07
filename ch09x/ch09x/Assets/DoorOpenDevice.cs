@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class DoorOpenDevice : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Vector3 dPos;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    private bool _open;
+
+    public void Operate(){
+        Debug.Log("Operate!!!");
+        if(_open){
+            Vector3 pos = transform.position - dPos;
+            transform.position = pos;
+        }else{
+            Vector3 pos = transform.position + dPos;
+            transform.position = pos;
+        }
+
+        _open =  !_open;
     }
 }
